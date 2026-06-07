@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 11145542}
   - component: {fileID: 11145541}
   - component: {fileID: 11145540}
+  - component: {fileID: 11145543}
   m_Layer: 0
   m_Name: HintButton
   m_TagString: Untagged
@@ -153,11 +154,11 @@ RectTransform:
   - {fileID: 1976536716}
   m_Father: {fileID: 580642125}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 70}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11145540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +253,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11145538}
   m_CullTransparentMesh: 1
+--- !u!114 &11145543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11145538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c778933e4bf03c7489ff55c01c7fc609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 11145539}
+  worldAnchor: {fileID: 1189076925}
+  mainCamera: {fileID: 330585545}
+  hideWhenBehindCamera: 1
 --- !u!1 &77225019
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 12.161447, y: 15.94, z: 0}
+  m_LocalPosition: {x: 5.6216736, y: 15.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1563,7 +1580,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 2094735358}
   snapFeedback: {fileID: 1432593778}
-  victoryPanel: {fileID: 1624844546}
   pieces: []
   backgroundRenderer: {fileID: 476214706}
   backgroundSortingOrder: 0
@@ -2094,6 +2110,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124145211}
   m_CullTransparentMesh: 1
+--- !u!4 &1189076925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1388298692494631099, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
+  m_PrefabInstance: {fileID: 3242307295581408349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1268975709
 GameObject:
   m_ObjectHideFlags: 0
@@ -8234,6 +8255,7 @@ MonoBehaviour:
       m_Calls: []
   victoryPanel: {fileID: 1624844546}
   bwMaskController: {fileID: 0}
+  admireColorDelay: 0.5
 --- !u!4 &2094735359
 Transform:
   m_ObjectHideFlags: 0

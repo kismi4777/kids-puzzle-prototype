@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 11145542}
   - component: {fileID: 11145541}
   - component: {fileID: 11145540}
+  - component: {fileID: 11145543}
   m_Layer: 0
   m_Name: HintButton
   m_TagString: Untagged
@@ -153,11 +154,11 @@ RectTransform:
   - {fileID: 1976536716}
   m_Father: {fileID: 580642125}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 70}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11145540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +253,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11145538}
   m_CullTransparentMesh: 1
+--- !u!114 &11145543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11145538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c778933e4bf03c7489ff55c01c7fc609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElement: {fileID: 11145539}
+  worldAnchor: {fileID: 1192632154}
+  mainCamera: {fileID: 330585545}
+  hideWhenBehindCamera: 1
 --- !u!1 &77225019
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +732,7 @@ Camera:
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 9.03885
+  orthographic size: 13.583756
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -740,7 +757,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 1.003747, y: 13.91, z: 0}
+  m_LocalPosition: {x: 0.9156339, y: 13.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1701,7 +1718,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 2094735358}
   snapFeedback: {fileID: 1432593778}
-  victoryPanel: {fileID: 1624844546}
   pieces: []
   backgroundRenderer: {fileID: 476214706}
   backgroundSortingOrder: 0
@@ -2370,6 +2386,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124145211}
   m_CullTransparentMesh: 1
+--- !u!4 &1192632154 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8840111542796048717, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
+  m_PrefabInstance: {fileID: 1722937473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1208026913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,6 +3269,14 @@ PrefabInstance:
     - target: {fileID: 8777878519976528386, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840111542796048717, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840111542796048717, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.94
       objectReference: {fileID: 0}
     - target: {fileID: 9085630067570034561, guid: 379a6b4d09fc2af4dac2a2f7947559d9, type: 3}
       propertyPath: m_Name
@@ -9109,6 +9138,7 @@ MonoBehaviour:
       m_Calls: []
   victoryPanel: {fileID: 1624844546}
   bwMaskController: {fileID: 0}
+  admireColorDelay: 0.5
 --- !u!4 &2094735359
 Transform:
   m_ObjectHideFlags: 0

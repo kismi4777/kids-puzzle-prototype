@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Панель победы")]
     [Tooltip("Пауза после раскрашивания фона, перед появлением VictoryPanel.")]
-    [SerializeField] private float admireColorDelay = 2f;
+    [SerializeField] private float admireColorDelay = 0.5f;
 
     private int placedCount;
     private int totalPieces;
