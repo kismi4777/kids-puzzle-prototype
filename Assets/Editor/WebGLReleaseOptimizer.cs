@@ -90,7 +90,7 @@ public static class WebGLReleaseOptimizer
         }
         else
         {
-            targetLoadType = AudioClipLoadType.CompressedInMemory;
+            targetLoadType = AudioClipLoadType.DecompressOnLoad;
         }
 
         if (result.loadType != targetLoadType)
