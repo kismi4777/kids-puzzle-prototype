@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Мультяшная подсказка «Tutorial Hand» по раскадровке лид-артиста.
@@ -100,6 +100,12 @@ public class HintManager : MonoBehaviour
             hintCoroutine = null;
         }
 
+        if (startHintCoroutine != null)
+        {
+            StopCoroutine(startHintCoroutine);
+            startHintCoroutine = null;
+        }
+
         isHintPlaying = false;
 
         // Не трогаем Transform руки вне Play Mode — иначе Inspector Unity падает с NullReference.
@@ -130,9 +136,6 @@ public class HintManager : MonoBehaviour
         isHintPlaying = true;
         hintCoroutine = StartCoroutine(HintSequenceCoroutine(targetPiece));
     }
-
-    /// <summary>Алиас для обратной совместимости.</summary>
-    public void ShowHint() => TriggerHint();
 
     /// <summary>
     /// Останавливает корутину, скрывает руку и сбрасывает флаги.
@@ -223,21 +226,29 @@ public class HintManager : MonoBehaviour
         }
     }
 
-    private static bool IsPlayerInteracting()
+    private bool IsPlayerInteracting()
     {
-        if (Mouse.current != null && (Mouse.current.leftButton.isPressed || Mouse.current.leftButton.wasPressedThisFrame))
-            return true;
-
-        if (Touchscreen.current != null)
+        if (trackedPieces != null)
         {
-            if (Touchscreen.current.primaryTouch.press.isPressed)
-                return true;
-
-            if (Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
-                return true;
+            for (int i = 0; i < trackedPieces.Length; i++)
+            {
+                if (trackedPieces[i] != null && trackedPieces[i].IsDragging)
+                    return true;
+            }
         }
 
-        return false;
+        EventSystem eventSystem = EventSystem.current;
+        BaseInput input = eventSystem != null && eventSystem.currentInputModule != null
+            ? eventSystem.currentInputModule.input
+            : null;
+
+        if (input == null)
+            return false;
+
+        if (input.touchCount > 0)
+            return true;
+
+        return input.GetMouseButton(0);
     }
 
     private void CachePieces()

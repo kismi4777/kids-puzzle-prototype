@@ -55,17 +55,6 @@ public class VictoryStarsAnimator : MonoBehaviour
     }
 
     /// <summary>
-    /// Запускает поочерёдную анимацию появления звёзд.
-    /// </summary>
-    public void PlayStarsAnimation()
-    {
-        if (playRoutine != null)
-            StopCoroutine(playRoutine);
-
-        playRoutine = StartCoroutine(PlayStarsAnimationRoutine());
-    }
-
-    /// <summary>
     /// Корутина появления звёзд для встраивания в общую последовательность панели.
     /// </summary>
     public IEnumerator PlayStarsAnimationRoutine()

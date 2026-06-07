@@ -10,7 +10,6 @@ public class VictoryPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject panelRoot;
     [SerializeField] private Button nextLevelButton;
-    [SerializeField] private LevelManager levelManager;
     [SerializeField] private VictoryStarsAnimator starsAnimator;
     [SerializeField] private RectTransform cardTransform;
     [SerializeField] private SnapFeedbackPlayer sfxPlayer;

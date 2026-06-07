@@ -25,21 +25,6 @@ public class LevelManager : MonoBehaviour
 
     public bool IsLevelCompleted => levelCompleted;
 
-    /// <summary>Возвращает первый несобранный кусочек (по порядку в массиве).</summary>
-    public DraggablePiece GetFirstUnplacedPiece()
-    {
-        if (pieces == null || pieces.Length == 0)
-            return null;
-
-        for (int i = 0; i < pieces.Length; i++)
-        {
-            if (IsPieceAvailableForHint(pieces[i]))
-                return pieces[i];
-        }
-
-        return null;
-    }
-
     /// <summary>Возвращает случайный кусочек, который ещё не собран.</summary>
     public DraggablePiece GetRandomUnplacedPiece()
     {
@@ -138,7 +123,6 @@ public class LevelManager : MonoBehaviour
             return;
 
         levelCompleted = true;
-        Debug.Log("[LevelManager] Уровень пройден! Все кусочки пазла на месте.");
 
         bwMaskController?.FadeOutEntireMask();
         onLevelComplete?.Invoke();

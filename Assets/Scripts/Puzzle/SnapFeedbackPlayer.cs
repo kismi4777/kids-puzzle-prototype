@@ -55,15 +55,6 @@ public class SnapFeedbackPlayer : MonoBehaviour
         winAudioSource.volume = WinVolume;
     }
 
-    /// <summary>
-    /// Запускает звук и VFX (для UnityEvent On Snapped).
-    /// </summary>
-    public void PlayAll()
-    {
-        PlaySnapSound();
-        PlaySnapVfx();
-    }
-
     public void PlaySnapSound()
     {
         if (audioSource == null || snapClip == null)
@@ -134,15 +125,6 @@ public class SnapFeedbackPlayer : MonoBehaviour
         winAudioSource.Stop();
         winAudioSource.volume = WinVolume;
         winFadeRoutine = null;
-    }
-
-    public void PlaySnapVfx()
-    {
-        if (snapVfx == null)
-            return;
-
-        snapVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        snapVfx.Play();
     }
 
     /// <summary>

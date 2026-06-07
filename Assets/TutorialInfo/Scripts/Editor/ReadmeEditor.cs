@@ -36,7 +36,9 @@ public class ReadmeEditor : Editor
             }
             else
             {
-                Debug.Log($"Could not find the Readme folder at {s_ReadmeSourceDirectory}");
+                EditorUtility.DisplayDialog("Remove Readme Assets",
+                    $"Could not find the Readme folder at {s_ReadmeSourceDirectory}",
+                    "OK");
             }
 
             var readmeAsset = SelectReadme();
@@ -85,11 +87,7 @@ public class ReadmeEditor : Editor
 
             return (Readme)readmeObject;
         }
-        else
-        {
-            Debug.Log("Couldn't find a readme");
-            return null;
-        }
+        return null;
     }
 
     protected override void OnHeaderGUI()

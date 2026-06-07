@@ -54,6 +54,7 @@ public class DraggablePiece : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private Vector3 targetDragPosition;
     private Vector3 lastDragFramePosition;
     private Vector3 currentTiltEuler;
+    private Vector3 dragWorldOffset;
 
     private bool isDragging;
     private bool isPlaced;
@@ -83,8 +84,10 @@ public class DraggablePiece : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         pieceCollider3D = GetComponent<Collider>();
         pieceCollider2D = GetComponent<Collider2D>();
 
+#if UNITY_EDITOR
         if (pieceCollider3D == null && pieceCollider2D == null)
             Debug.LogError($"[{nameof(DraggablePiece)}] На объекте {name} нужен Collider или Collider2D.", this);
+#endif
 
         homePosition = pieceTransform.position;
         homeLocalRotation = pieceTransform.localRotation;
@@ -122,7 +125,7 @@ public class DraggablePiece : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         if (!CanInteract())
             return;
 
-        BeginDrag();
+        BeginDrag(eventData);
         UpdateTargetDragPosition(eventData);
     }
 
@@ -175,13 +178,20 @@ public class DraggablePiece : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         return !isPlaced && !isAnimatingReturn && targetSlot != null && mainCamera != null;
     }
 
-    private void BeginDrag()
+    private void BeginDrag(PointerEventData eventData)
     {
         isDragging = true;
+        RefreshDragPlane();
         originalRotation = pieceTransform.localRotation;
         targetDragPosition = pieceTransform.position;
         lastDragFramePosition = pieceTransform.position;
         currentTiltEuler = Vector3.zero;
+
+        if (TryGetWorldPointOnDragPlane(eventData, out Vector3 worldPoint))
+            dragWorldOffset = pieceTransform.position - worldPoint;
+        else
+            dragWorldOffset = Vector3.zero;
+
         BringToFront();
         DragStarted?.Invoke(this);
     }
@@ -239,21 +249,40 @@ public class DraggablePiece : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             pieceTransform.SetSiblingIndex(defaultSiblingIndex);
     }
 
+    private void RefreshDragPlane()
+    {
+        dragPlaneHeight = pieceTransform.position.y;
+        dragPlane = new Plane(Vector3.up, new Vector3(0f, dragPlaneHeight, 0f));
+    }
+
+    /// <summary>
+    /// Пересечение луча из eventData.position с горизонтальной плоскостью XZ.
+    /// </summary>
+    private bool TryGetWorldPointOnDragPlane(PointerEventData eventData, out Vector3 worldPoint)
+    {
+        worldPoint = default;
+
+        if (mainCamera == null)
+            return false;
+
+        Ray ray = mainCamera.ScreenPointToRay(eventData.position);
+
+        if (!dragPlane.Raycast(ray, out float distance))
+            return false;
+
+        worldPoint = ray.GetPoint(distance);
+        return true;
+    }
+
     private void UpdateTargetDragPosition(PointerEventData eventData)
     {
-        if (useHorizontalPlane)
-        {
-            Ray ray = mainCamera.ScreenPointToRay(eventData.position);
-
-            if (dragPlane.Raycast(ray, out float distance))
-                targetDragPosition = ray.GetPoint(distance);
-
+        if (!TryGetWorldPointOnDragPlane(eventData, out Vector3 worldPoint))
             return;
-        }
 
-        Vector3 screenPoint = eventData.position;
-        screenPoint.z = mainCamera.WorldToScreenPoint(pieceTransform.position).z;
-        targetDragPosition = mainCamera.ScreenToWorldPoint(screenPoint);
+        if (useHorizontalPlane)
+            targetDragPosition = worldPoint + dragWorldOffset;
+        else
+            targetDragPosition = worldPoint;
     }
 
     private void EvaluateDrop()
